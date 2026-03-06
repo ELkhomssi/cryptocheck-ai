@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import RiskAssessment from '@/src/components/RiskAssessment';
+import LiveTransactionsFeed from '@/src/components/LiveTransactionsFeed';
+import MarketDashboard from '@/src/components/MarketDashboard';
 
 const THEME = {
   bg: '#030303', surface: '#080808',
@@ -34,7 +37,8 @@ export default function RobotPage() {
   const [error, setError] = useState('');
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [portfolioInput, setPortfolioInput] = useState('');
-  const [tab, setTab] = useState<'signal' | 'portfolio'>('signal');
+  const [tab, setTab] = useState<'signal' | 'portfolio' | 'market'>('signal');
+  const [analyzedMint, setAnalyzedMint] = useState('');
 
   const analyze = async () => {
     if (!mint.trim()) return;
@@ -46,8 +50,11 @@ export default function RobotPage() {
         body: JSON.stringify({ mint: mint.trim(), action: 'analyze' }),
       });
       const data = await res.json();
-      if (data.success) { setResult(data.result); setSignal(data.signal); }
-      else setError(data.error);
+      if (data.success) {
+        setResult(data.result);
+        setSignal(data.signal);
+        setAnalyzedMint(mint.trim());
+      } else setError(data.error);
     } catch { setError('Connection error'); }
     finally { setLoading(false); }
   };
@@ -70,17 +77,19 @@ export default function RobotPage() {
           <span style={{ fontSize: 9, color: THEME.muted, letterSpacing: '0.2em' }}>AI ROBOT</span>
         </a>
         <div style={{ display: 'flex', gap: 8 }}>
-          {(['signal', 'portfolio'] as const).map(t => (
+          {(['signal', 'portfolio', 'market'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
               style={{ padding: '4px 14px', fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', border: '0.5px solid', borderColor: tab === t ? THEME.gold + '40' : 'rgba(255,255,255,0.08)', color: tab === t ? THEME.gold : THEME.muted, background: tab === t ? THEME.gold + '08' : 'transparent', borderRadius: 1, cursor: 'pointer' }}>
-              {t === 'signal' ? '🤖 AI Signal' : '📊 Portfolio'}
+              {t === 'signal' ? '🤖 AI Signal' : t === 'portfolio' ? '📊 Portfolio' : '📈 Market'}
             </button>
           ))}
           <a href="/" style={{ padding: '4px 14px', fontSize: 9, color: THEME.muted, textDecoration: 'none', border: '0.5px solid rgba(255,255,255,0.08)', letterSpacing: '0.1em' }}>← TERMINAL</a>
         </div>
       </header>
 
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '40px 24px' }}>
+
+        {/* ── SIGNAL TAB ── */}
         {tab === 'signal' && (
           <>
             <div style={{ marginBottom: 32 }}>
@@ -106,6 +115,7 @@ export default function RobotPage() {
             <AnimatePresence>
               {signal && result && (
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  {/* Original signal cards */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
                     <div style={{ background: THEME.surface, border: '0.5px solid ' + decColor + '30', borderRadius: 2, padding: 24 }}>
                       <div style={{ fontSize: 9, letterSpacing: '0.2em', color: THEME.muted, marginBottom: 12 }}>AI DECISION</div>
@@ -162,19 +172,41 @@ export default function RobotPage() {
                   )}
 
                   {signal.alerts.length > 0 && (
-                    <div style={{ background: THEME.surface, border: '0.5px solid rgba(255,107,53,0.2)', borderRadius: 2, padding: 16 }}>
+                    <div style={{ background: THEME.surface, border: '0.5px solid rgba(255,107,53,0.2)', borderRadius: 2, padding: 16, marginBottom: 24 }}>
                       <div style={{ fontSize: 8, color: '#ff6b35', letterSpacing: '0.15em', marginBottom: 10 }}>⚠ RISK ALERTS</div>
                       {signal.alerts.map((a, i) => (
                         <div key={i} style={{ fontSize: 10, color: THEME.muted, marginBottom: 4 }}>• {a}</div>
                       ))}
                     </div>
                   )}
+
+                  {/* ── NEW: Risk Assessment ── */}
+                  <div style={{ marginBottom: 24 }}>
+                    <div style={{ fontSize: 9, letterSpacing: '0.3em', color: THEME.muted, marginBottom: 12 }}>SECURITY ANALYSIS</div>
+                    <RiskAssessment
+                      initialAddress={analyzedMint}
+                      chain="solana"
+                      birdeyeApiKey={process.env.NEXT_PUBLIC_BIRDEYE_KEY || ''}
+                      onScoreUpdate={(score: number) => console.log('Trust score:', score)}
+                    />
+                  </div>
+
+                  {/* ── NEW: Live Transactions ── */}
+                  <div style={{ marginBottom: 24 }}>
+                    <div style={{ fontSize: 9, letterSpacing: '0.3em', color: THEME.muted, marginBottom: 12 }}>LIVE TRANSACTIONS</div>
+                    <LiveTransactionsFeed
+                      tokenPrice={0.001}
+                      useMockData={true}
+                    />
+                  </div>
+
                 </motion.div>
               )}
             </AnimatePresence>
           </>
         )}
 
+        {/* ── PORTFOLIO TAB ── */}
         {tab === 'portfolio' && (
           <div>
             <div style={{ marginBottom: 24 }}>
@@ -204,7 +236,7 @@ export default function RobotPage() {
                       style={{ background: 'none', border: 'none', color: '#ff2244', cursor: 'pointer', fontSize: 10 }}>✕</button>
                   </div>
                 ))}
-                <button onClick={() => {}}
+                <button
                   style={{ width: '100%', marginTop: 16, padding: '12px', background: THEME.gold + '12', border: '0.5px solid ' + THEME.gold + '30', color: THEME.gold, fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.15em', cursor: 'pointer', borderRadius: 1 }}>
                   ANALYZE PORTFOLIO WITH AI →
                 </button>
@@ -212,6 +244,23 @@ export default function RobotPage() {
             )}
           </div>
         )}
+
+        {/* ── MARKET TAB ── */}
+        {tab === 'market' && (
+          <div>
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ fontSize: 9, letterSpacing: '0.3em', color: THEME.muted, marginBottom: 8 }}>MARKET OVERVIEW</div>
+              <div style={{ fontSize: 22, fontWeight: 700 }}>Live <span style={{ color: THEME.gold }}>Market Dashboard</span></div>
+            </div>
+            <MarketDashboard
+              onTokenSelect={(token: any) => {
+                setMint(token.address);
+                setTab('signal');
+              }}
+            />
+          </div>
+        )}
+
       </div>
     </div>
   );
