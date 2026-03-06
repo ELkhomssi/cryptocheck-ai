@@ -3,8 +3,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NeuralScanner } from "@/components/NeuralScanner";
-import LiveAlphaFeed from "@/components/LiveAlphaFeed";
-import type { LiveEntry } from "@/components/LiveAlphaFeed";
+import { LiveAlphaFeed, type LiveEntry } from "@/components/LiveAlphaFeed";
 import type { EngineResult } from "@/lib/engine";
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
@@ -255,10 +254,10 @@ export default function MissionControlPage() {
 
   const accentColor = accent === "gold" ? THEME.gold : THEME.emerald;
 
-  const handleFeedSelect = useCallback((mint: string) => {
-    setActiveMint(mint);
-      
-      
+  const handleFeedSelect = useCallback((entry: LiveEntry) => {
+    if (entry.result) {
+      setActiveResult(entry.result);
+      setActiveMint(entry.mint);
     }
   }, []);
 
@@ -296,7 +295,7 @@ export default function MissionControlPage() {
 
         {/* LEFT — Live Feed */}
         <div className="flex-shrink-0 overflow-hidden" style={{ width: 272 }}>
-          <LiveAlphaFeed accent={accentColor} onScan={handleFeedSelect} />
+          <LiveAlphaFeed accent={accentColor} onSelect={handleFeedSelect} maxEntries={40} />
         </div>
 
         {/* CENTER — Scanner */}
