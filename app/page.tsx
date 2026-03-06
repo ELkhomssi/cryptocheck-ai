@@ -256,9 +256,6 @@ export default function MissionControlPage() {
 
   const handleFeedSelect = useCallback((mint: string) => {
     setActiveMint(mint);
-
-
-    }
   }, []);
 
   const handleFeedScan = useCallback((mint: string) => { setActiveMint(mint); }, []);
