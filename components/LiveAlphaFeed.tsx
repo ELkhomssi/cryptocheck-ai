@@ -23,7 +23,7 @@ export interface LiveEntry {
 
 interface LiveAlphaFeedProps {
   accent?: string;
-  onSelect?: (entry: LiveEntry) => void;
+  onScan?: (mint: string) => void;
   maxEntries?: number;
 }
 
@@ -292,7 +292,7 @@ function WsStatus({ state, accent, count }: { state: string; accent: string; cou
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-export default function LiveAlphaFeed({ accent = "#00d4ff", onScan }: LiveAlphaFeedProps) {
+function LiveAlphaFeed({ accent = "#00d4ff", onScan }: LiveAlphaFeedProps) {
   const { entries, wsState } = useLiveFeed(maxEntries);
   const [filter, setFilter] = useState<"all" | "pump.fun" | "raydium">("all");
   const [scoreFilter, setScoreFilter] = useState<number>(0);
