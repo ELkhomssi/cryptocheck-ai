@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import NeuralScannerView, { TerminalBoot, injectCSS } from '@/src/components/NeuralScannerView';
-import LiveTransactionsFeed from '@/src/components/LiveTransactionsFeed';
-import MarketDashboard from '@/src/components/MarketDashboard';
+import NeuralScannerView, { TerminalBoot, injectCSS } from '@/components/NeuralScannerView';
+import LiveTransactionsFeed from '@/components/LiveTransactionsFeed';
+import MarketDashboard from '@/components/MarketDashboard';
 
 interface Signal { decision:string; confidence:number; reason:string; entry?:string; exit?:string; maxPosition:string; alerts:string[]; }
 interface EngineResult { token:{name:string;symbol:string;liquidityUSD:number;mint:string}; score:number; level:string; verdict:string; flags:{title:string;level:string}[]; }
