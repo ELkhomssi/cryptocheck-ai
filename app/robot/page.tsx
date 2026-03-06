@@ -6,14 +6,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 const THEME = {
   bg: '#030303', surface: '#080808',
   border: 'rgba(255,255,255,0.04)',
-  gold: '#ffb300', emerald: '#00ff88',
+  gold: '#00d4ff', emerald: '#00ff88',
   red: '#ff2244', blue: '#4488ff',
   text: 'rgba(255,255,255,0.85)',
   muted: 'rgba(255,255,255,0.25)',
 };
 
 const DECISION_COLOR: Record<string, string> = {
-  BUY: '#00ff88', SELL: '#ff2244', HOLD: '#ffb300', AVOID: '#ff6b35',
+  BUY: '#00ff88', SELL: '#ff2244', HOLD: '#00d4ff', AVOID: '#ff6b35',
 };
 
 interface Signal {

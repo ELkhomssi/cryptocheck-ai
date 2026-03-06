@@ -14,7 +14,7 @@ export interface LiveEntry {
 }
 
 const LEVEL_COLOR: Record<string, string> = {
-  SAFE: '#00ff88', LOW: '#b4ff44', MEDIUM: '#ffb300', HIGH: '#ff6b35', CRITICAL: '#ff2244',
+  SAFE: '#00ff88', LOW: '#b4ff44', MEDIUM: '#00d4ff', HIGH: '#ff6b35', CRITICAL: '#ff2244',
 };
 
 const DEMO_TOKENS = [
@@ -150,7 +150,7 @@ function useLiveFeed(maxEntries: number) {
 const THEME = {
   bg: '#030303', surface: '#080808',
   border: 'rgba(255,255,255,0.04)',
-  gold: '#ffb300', text: 'rgba(255,255,255,0.85)',
+  gold: '#00d4ff', text: 'rgba(255,255,255,0.85)',
   muted: 'rgba(255,255,255,0.25)', dim: 'rgba(255,255,255,0.08)',
 };
 
@@ -166,7 +166,7 @@ export default function LiveAlphaFeed({ onScan, accent = THEME.gold }: Props) {
   const filtered = entries.filter(e => filter === 'all' || e.platform === filter);
   const safe = entries.filter(e => e.result?.level === 'SAFE' || e.result?.level === 'LOW').length;
   const rugs = entries.filter(e => e.result?.level === 'CRITICAL' || e.result?.level === 'HIGH').length;
-  const statusColor = wsState === 'connected' ? '#00ff88' : '#ffb300';
+  const statusColor = wsState === 'connected' ? '#00ff88' : '#00d4ff';
   const statusLabel = wsState === 'connected' ? 'LIVE' : wsState === 'connecting' ? 'CONNECTING' : 'DEMO';
 
   return (

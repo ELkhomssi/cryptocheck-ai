@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const THEME = {
   bg: '#030303', surface: '#080808',
   border: 'rgba(255,255,255,0.04)',
-  gold: '#ffb300', emerald: '#00ff88',
+  gold: '#00d4ff', emerald: '#00ff88',
   text: 'rgba(255,255,255,0.85)',
   muted: 'rgba(255,255,255,0.25)',
   dim: 'rgba(255,255,255,0.08)',
@@ -32,7 +32,7 @@ const PLANS = [
     name: 'PRO',
     price: '$5',
     period: 'per week',
-    color: '#ffb300',
+    color: '#00d4ff',
     badge: 'POPULAR',
     features: [
       'Unlimited scans',

@@ -13,7 +13,7 @@ const THEME = {
   surface: "#080808",
   card:    "#0a0a0a",
   border:  "rgba(255,255,255,0.04)",
-  gold:    "#ffb300",
+  gold:    "#00d4ff",
   emerald: "#00ff88",
   text:    "rgba(255,255,255,0.85)",
   muted:   "rgba(255,255,255,0.25)",

@@ -24,7 +24,7 @@ function ScoreArc({ score, level }: { score: number; level: string }) {
   const palette: Record<string, { stroke: string; glow: string; text: string }> = {
     SAFE:     { stroke: "#00ff88", glow: "#00ff8840", text: "#00ff88" },
     LOW:      { stroke: "#b4ff44", glow: "#b4ff4430", text: "#b4ff44" },
-    MEDIUM:   { stroke: "#ffb300", glow: "#ffb30040", text: "#ffb300" },
+    MEDIUM:   { stroke: "#00d4ff", glow: "#00d4ff40", text: "#00d4ff" },
     HIGH:     { stroke: "#ff6b35", glow: "#ff6b3540", text: "#ff6b35" },
     CRITICAL: { stroke: "#ff2244", glow: "#ff224450", text: "#ff2244" },
   };
@@ -64,7 +64,7 @@ function ScoreArc({ score, level }: { score: number; level: string }) {
 // ─── Sub: Category Bars ──────────────────────────────────────────────────────
 
 function CategoryBar({ label, score, delay }: { label: string; score: number; delay: number }) {
-  const col = score >= 75 ? "#00ff88" : score >= 50 ? "#ffb300" : "#ff2244";
+  const col = score >= 75 ? "#00ff88" : score >= 50 ? "#00d4ff" : "#ff2244";
   return (
     <motion.div
       initial={{ opacity: 0, x: -8 }}
@@ -98,7 +98,7 @@ function CategoryBar({ label, score, delay }: { label: string; score: number; de
 const FLAG_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   CRITICAL: { bg: "rgba(255,34,68,0.08)", text: "#ff2244", border: "rgba(255,34,68,0.2)" },
   HIGH:     { bg: "rgba(255,107,53,0.08)", text: "#ff6b35", border: "rgba(255,107,53,0.2)" },
-  MEDIUM:   { bg: "rgba(255,179,0,0.08)", text: "#ffb300", border: "rgba(255,179,0,0.2)" },
+  MEDIUM:   { bg: "rgba(255,179,0,0.08)", text: "#00d4ff", border: "rgba(255,179,0,0.2)" },
   LOW:      { bg: "rgba(180,255,68,0.08)", text: "#b4ff44", border: "rgba(180,255,68,0.2)" },
   SAFE:     { bg: "rgba(0,255,136,0.08)", text: "#00ff88", border: "rgba(0,255,136,0.2)" },
 };
@@ -195,7 +195,7 @@ function TypewriterTerminal({ lines, accent }: { lines: string[]; accent: string
           className="whitespace-pre"
           style={{
             color: line.includes("CRITICAL") ? "#ff2244"
-              : line.includes("⚠") ? "#ffb300"
+              : line.includes("⚠") ? "#00d4ff"
               : line.includes("✓") ? "#00ff88"
               : line.includes("VERDICT") || line.includes("SCORE") ? accent
               : isImportantLine(line) ? "rgba(255,255,255,0.7)"
@@ -279,7 +279,7 @@ export function NeuralScanner({
   }, [initialMint]);
 
   const levelColor: Record<string, string> = {
-    SAFE: "#00ff88", LOW: "#b4ff44", MEDIUM: "#ffb300",
+    SAFE: "#00ff88", LOW: "#b4ff44", MEDIUM: "#00d4ff",
     HIGH: "#ff6b35", CRITICAL: "#ff2244",
   };
   const resultColor = result ? (levelColor[result.level] ?? accent) : accent;
@@ -297,7 +297,7 @@ export function NeuralScanner({
         style={{ borderBottom: `0.5px solid rgba(255,255,255,0.06)` }}>
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
-            {["#ff2244", "#ffb300", "#00ff88"].map((c, i) => (
+            {["#ff2244", "#00d4ff", "#00ff88"].map((c, i) => (
               <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c + "60", border: `0.5px solid ${c}40` }} />
             ))}
           </div>
