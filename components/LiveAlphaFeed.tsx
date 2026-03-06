@@ -57,7 +57,7 @@ function FeedRow({ entry, accent, onSelect }: { entry: LiveEntry, accent: string
 }
 
 // 3. الـ Component الرئيسي
-export default function LiveAlphaFeed({ onScan, onScan, accent = '#ffb300' }: LiveAlphaFeedProps) {
+export default function LiveAlphaFeed({ onScan, accent = '#ffb300' }: LiveAlphaFeedProps) {
   const [entries, setEntries] = useState<LiveEntry[]>([]);
   const reconnectRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
