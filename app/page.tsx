@@ -3,7 +3,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NeuralScanner } from "@/components/NeuralScanner";
-import { LiveAlphaFeed, type LiveEntry } from "@/components/LiveAlphaFeed";
+import LiveAlphaFeed from "@/components/LiveAlphaFeed";
+import type { LiveEntry } from "@/components/LiveAlphaFeed";
 import type { EngineResult } from "@/lib/engine";
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
