@@ -38,8 +38,7 @@ function useLiveFeed(maxEntries: number) {
   const wsRef = useRef<WebSocket | null>(null);
   const queueRef = useRef<string[]>([]);
   const processingRef = useRef(false);
-  // @ts-ignore
-  const reconnectRef = useRef(null);
+  const reconnectRef = useRef<ReturnType<typeof setTimeout>>();
 
   const processQueue = useCallback(async () => {
     if (processingRef.current || queueRef.current.length === 0) return;
