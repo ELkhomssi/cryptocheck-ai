@@ -296,7 +296,7 @@ export default function MissionControlPage() {
 
         {/* LEFT — Live Feed */}
         <div className="flex-shrink-0 overflow-hidden" style={{ width: 272 }}>
-          <LiveAlphaFeed accent={accentColor} onSelect={handleFeedSelect} maxEntries={40} />
+          <LiveAlphaFeed accent={accentColor} onScan={handleFeedSelect} />
         </div>
 
         {/* CENTER — Scanner */}
