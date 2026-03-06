@@ -146,7 +146,7 @@ export function GlobalSearchBar({ onSelect }: { onSelect?: (mint: string, token:
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -160,9 +160,9 @@ export function GlobalSearchBar({ onSelect }: { onSelect?: (mint: string, token:
   }, []);
 
   useEffect(() => {
-    clearTimeout(debounceRef.current);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => search(query), 350);
-    return () => clearTimeout(debounceRef.current);
+    return () => if (debounceRef.current) clearTimeout(debounceRef.current);
   }, [query, search]);
 
   const handleSelect = (result: SearchResult) => {
