@@ -401,3 +401,5 @@ export function LiveAlphaFeed({ accent = "#ffb300", onSelect, maxEntries = 40 }:
     </div>
   );
 }
+
+export default LiveAlphaFeed;
