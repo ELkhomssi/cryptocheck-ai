@@ -130,7 +130,7 @@ function useLiveFeed(maxEntries: number) {
   useEffect(() => {
     connect();
     return () => {
-      clearTimeout(reconnectRef.current);
+      if (reconnectRef.current) clearTimeout(reconnectRef.current);
       wsRef.current?.close();
     };
   }, [connect]);
