@@ -261,6 +261,8 @@ export default function MissionControlPage() {
     }
   }, []);
 
+  const handleFeedScan = useCallback((mint: string) => { setActiveMint(mint); }, []);
+
   const handleScanResult = useCallback((result: EngineResult) => {
     setActiveResult(result);
     setActiveMint(result.token.mint);
