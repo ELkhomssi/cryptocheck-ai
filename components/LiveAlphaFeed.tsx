@@ -76,7 +76,7 @@ function useLiveFeed(maxEntries: number) {
     processingRef.current = true;
     const mint = queueRef.current.shift()!;
     const id = mint.slice(0, 8) + Date.now();
-    setEntries(prev => [{ id, mint, detectedAt: Date.now(), platform: 'raydium', status: 'scanning' }, ...prev].slice(0, maxEntries));
+    setEntries(prev => [{ id, mint, detectedAt: Date.now(), platform: 'raydium' as const, status: 'scanning' as const }, ...prev].slice(0, maxEntries));
     try {
       const res = await fetch('/api/analyze?mint=' + mint);
       const json = await res.json();
@@ -103,7 +103,7 @@ function useLiveFeed(maxEntries: number) {
       demoIdxRef.current++;
       setEntries(prev => {
         if (prev.some(e => e.mint === token.mint)) return prev;
-        return [{ id: token.mint + Date.now(), mint: token.mint, detectedAt: Date.now(), platform: token.platform, status: 'scanning' }, ...prev].slice(0, maxEntries);
+        return [{ id: token.mint + Date.now(), mint: token.mint, detectedAt: Date.now(), platform: token.platform, status: 'scanning' as const }, ...prev].slice(0, maxEntries);
       });
       enqueue(token.mint);
     }, 3000);
