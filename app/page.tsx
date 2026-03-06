@@ -1,4 +1,4 @@
-"use client";
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';"use client";
 
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
