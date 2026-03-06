@@ -228,4 +228,3 @@ export default function LiveAlphaFeed({ onScan, accent = THEME.gold }: Props) {
     </div>
   );
 }
-export { LiveAlphaFeed as default };
