@@ -85,11 +85,11 @@ export function analyzeRisk(token: TokenData): EngineResult {
   const cats: RiskCategory[] = ['AUTHORITY','DISTRIBUTION','LIQUIDITY','METADATA','PATTERN'];
   const W: Record<RiskCategory,number> = { AUTHORITY:0.30, DISTRIBUTION:0.25, LIQUIDITY:0.25, METADATA:0.10, PATTERN:0.10 };
   const categories: CategoryScore[] = [
-    { category:'AUTHORITY', label:'Authority Control', score:0, weight:0.30 },
-    { category:'DISTRIBUTION', label:'Holder Distribution', score:0, weight:0.25 },
-    { category:'LIQUIDITY', label:'Liquidity Depth', score:0, weight:0.25 },
-    { category:'METADATA', label:'Token Integrity', score:0, weight:0.10 },
-    { category:'PATTERN', label:'Risk Patterns', score:0, weight:0.10 },
+    { category:'AUTHORITY' as const, label:'Authority Control', score:0, weight:0.30 },
+    { category:'DISTRIBUTION' as const, label:'Holder Distribution', score:0, weight:0.25 },
+    { category:'LIQUIDITY' as const, label:'Liquidity Depth', score:0, weight:0.25 },
+    { category:'METADATA' as const, label:'Token Integrity', score:0, weight:0.10 },
+    { category:'PATTERN' as const, label:'Risk Patterns', score:0, weight:0.10 },
   ].map(c => ({ ...c, score: Math.max(0, 100 - flags.filter(f => f.category === c.category).reduce((s,f) => s+f.penalty, 0)) }));
   const score = Math.round(categories.reduce((s,c) => s + c.score * W[c.category], 0));
   const level: RiskLevel = score>=80?'SAFE':score>=60?'LOW':score>=40?'MEDIUM':score>=20?'HIGH':'CRITICAL';
