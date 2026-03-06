@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NeuralScanner } from "@/components/NeuralScanner";
-import { LiveAlphaFeed, type LiveEntry } from "@/components/LiveAlphaFeed";
+import LiveAlphaFeed from "@/components/LiveAlphaFeed";
 import type { EngineResult } from "@/lib/engine";
 
 // ─── Theme ───────────────────────────────────────────────────────────────────
@@ -254,10 +254,10 @@ export default function MissionControlPage() {
 
   const accentColor = accent === "gold" ? THEME.gold : THEME.emerald;
 
-  const handleFeedSelect = useCallback((entry: LiveEntry) => {
-    if (entry.result) {
-      setActiveResult(entry.result);
-      setActiveMint(entry.mint);
+  const handleFeedSelect = useCallback((mint: string) => {
+    setActiveMint(mint);
+
+
     }
   }, []);
 
