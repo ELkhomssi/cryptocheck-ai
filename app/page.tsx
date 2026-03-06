@@ -255,10 +255,10 @@ export default function MissionControlPage() {
 
   const accentColor = accent === "gold" ? THEME.gold : THEME.emerald;
 
-  const handleFeedSelect = useCallback((entry: LiveEntry) => {
-    if (entry.result) {
-      setActiveResult(entry.result);
-      setActiveMint(entry.mint);
+  const handleFeedSelect = useCallback((mint: string) => {
+    setActiveMint(mint);
+      
+      
     }
   }, []);
 
