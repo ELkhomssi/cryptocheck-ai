@@ -187,7 +187,7 @@ export default function RobotPage() {
                       initialAddress={analyzedMint}
                       chain="solana"
                       birdeyeApiKey={process.env.NEXT_PUBLIC_BIRDEYE_KEY || ''}
-                      onScoreUpdate={(score: number) => console.log('Trust score:', score)}
+                      onScoreUpdate={(score) => console.log('Trust score:', score)}
                     />
                   </div>
 
