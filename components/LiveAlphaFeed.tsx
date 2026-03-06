@@ -191,7 +191,7 @@ function FeedRow({
       animate={{ opacity: 1, x: 0, height: "auto" }}
       exit={{ opacity: 0, x: 12, height: 0 }}
       transition={{ type: "spring", stiffness: 400, damping: 35 }}
-      onClick={() => entry.status === "done" && onSelect?.(entry)}
+      onClick={() => entry.status === "done" && onScan?.(entry.mint)}
       className="group relative flex items-center gap-2.5 px-3 py-2.5 cursor-pointer transition-all duration-150"
       style={{
         borderBottom: "0.5px solid rgba(255,255,255,0.03)",
@@ -292,7 +292,7 @@ function WsStatus({ state, accent, count }: { state: string; accent: string; cou
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-export function LiveAlphaFeed({ accent = "#ffb300", onSelect, maxEntries = 40 }: LiveAlphaFeedProps) {
+export default function LiveAlphaFeed({ accent = "#00d4ff", onScan }: LiveAlphaFeedProps) {
   const { entries, wsState } = useLiveFeed(maxEntries);
   const [filter, setFilter] = useState<"all" | "pump.fun" | "raydium">("all");
   const [scoreFilter, setScoreFilter] = useState<number>(0);
