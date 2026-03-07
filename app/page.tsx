@@ -1,5 +1,6 @@
 "use client";
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import GlobalNav from '@/components/GlobalNav';
 
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -102,7 +103,7 @@ function Topbar({ result, accent }: TopbarProps) {
       {/* Right */}
       <div className="flex items-center gap-4 font-mono text-[9px]" style={{ color: THEME.muted }}>
         <span style={{ color: THEME.dim }}>{time}</span>
-        <div className="flex gap-1.5 pl-2" style={{ borderLeft: `0.5px solid ${THEME.border}` }}>
+        <div className="flex gap-1.5"><a href="/market" className="px-3 py-1 font-mono text-[9px] tracking-widest uppercase transition-all hover:opacity-80" style={{border:`0.5px solid rgba(255,255,255,0.06)`,color:"rgba(255,255,255,0.3)",borderRadius:1}}>MARKET</a><a href="/ai-signal" className="px-3 py-1 font-mono text-[9px] tracking-widest uppercase transition-all hover:opacity-80" style={{border:`0.5px solid rgba(255,255,255,0.06)`,color:"rgba(255,255,255,0.3)",borderRadius:1}}>AI SIGNAL</a></div><div className="flex gap-1.5 pl-2" style={{ borderLeft: `0.5px solid ${THEME.border}` }}>
           <a
             href="/upgrade"
             className="px-3 py-1 font-mono text-[9px] tracking-widest uppercase transition-all hover:opacity-80"
