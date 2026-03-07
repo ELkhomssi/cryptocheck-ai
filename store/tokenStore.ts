@@ -11,7 +11,7 @@ interface Token {
 
 interface TokenStore {
   mint: string;
-  token: Token | null;
+  token: Token | undefined;
   scanResult: any;
   scanSignal: any;
   scanLoading: boolean;
@@ -25,14 +25,14 @@ interface TokenStore {
 
 export const useTokenStore = create<TokenStore>((set) => ({
   mint: '',
-  token: null,
-  scanResult: null,
-  scanSignal: null,
+  token: undefined,
+  scanResult: undefined,
+  scanSignal: undefined,
   scanLoading: false,
   wsConnected: true,
-  setMint: (mint, token = null) => set({ mint, token, scanResult: null, scanSignal: null }),
+  setMint: (mint, token) => set({ mint, token, scanResult: undefined, scanSignal: undefined }),
   setScanResult: (scanResult, scanSignal) => set({ scanResult, scanSignal, scanLoading: false }),
   setScanLoading: (scanLoading) => set({ scanLoading }),
   setWsConnected: (wsConnected) => set({ wsConnected }),
-  clearScan: () => set({ scanResult: null, scanSignal: null }),
+  clearScan: () => set({ scanResult: undefined, scanSignal: undefined }),
 }));
