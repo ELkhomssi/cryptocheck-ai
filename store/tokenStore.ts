@@ -1,70 +1,38 @@
-// store/tokenStore.ts
-// Global shared state — works across all pages/components
-// Install: npm install zustand
-
 import { create } from 'zustand';
 
-interface TokenState {
-  // Active token being scanned
-  activeMint: string;
-  activeToken: {
-    name: string;
-    symbol: string;
-    price?: number;
-    score?: number;
-    level?: string;
-  } | null;
+interface Token {
+  address: string;
+  name?: string;
+  symbol?: string;
+  price?: number;
+  score?: number;
+  level?: string;
+}
 
-  // Scan results
-  scanResult: any | null;
-  scanSignal: any | null;
+interface TokenStore {
+  mint: string;
+  token: Token | null;
+  scanResult: any;
+  scanSignal: any;
   scanLoading: boolean;
-  scanError: string;
-
-  // Search
-  globalSearch: string;
-
-  // Actions
-  setActiveMint: (mint: string, token?: any) => void;
+  wsConnected: boolean;
+  setMint: (mint: string, token?: Token) => void;
   setScanResult: (result: any, signal: any) => void;
-  setScanLoading: (loading: boolean) => void;
-  setScanError: (error: string) => void;
-  setGlobalSearch: (q: string) => void;
+  setScanLoading: (v: boolean) => void;
+  setWsConnected: (v: boolean) => void;
   clearScan: () => void;
 }
 
-export const useTokenStore = create<TokenState>((set) => ({
-  activeMint: '',
-  activeToken: null,
+export const useTokenStore = create<TokenStore>((set) => ({
+  mint: '',
+  token: null,
   scanResult: null,
   scanSignal: null,
   scanLoading: false,
-  scanError: '',
-  globalSearch: '',
-
-  setActiveMint: (mint, token = null) => set({
-    activeMint: mint,
-    activeToken: token,
-    scanResult: null,
-    scanSignal: null,
-    scanError: '',
-  }),
-
-  setScanResult: (result, signal) => set({
-    scanResult: result,
-    scanSignal: signal,
-    scanLoading: false,
-    scanError: '',
-    activeToken: result?.token ? {
-      name: result.token.name,
-      symbol: result.token.symbol,
-      score: result.score,
-      level: result.level,
-    } : null,
-  }),
-
-  setScanLoading: (loading) => set({ scanLoading: loading }),
-  setScanError: (error) => set({ scanError: error, scanLoading: false }),
-  setGlobalSearch: (q) => set({ globalSearch: q }),
-  clearScan: () => set({ scanResult: null, scanSignal: null, scanError: '', scanLoading: false }),
+  wsConnected: true,
+  setMint: (mint, token = null) => set({ mint, token, scanResult: null, scanSignal: null }),
+  setScanResult: (scanResult, scanSignal) => set({ scanResult, scanSignal, scanLoading: false }),
+  setScanLoading: (scanLoading) => set({ scanLoading }),
+  setWsConnected: (wsConnected) => set({ wsConnected }),
+  clearScan: () => set({ scanResult: null, scanSignal: null }),
 }));
