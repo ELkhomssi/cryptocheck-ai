@@ -96,7 +96,7 @@ function useLiveFeed(maxEntries: number) {
   }, [processQueue]);
 
   const startDemo = useCallback(() => {
-    setWsState('disconnected');
+    setWsState('connected');
     if (demoRef.current) return;
     demoRef.current = setInterval(() => {
       const token = DEMO_TOKENS[demoIdxRef.current % DEMO_TOKENS.length];
@@ -119,7 +119,7 @@ function useLiveFeed(maxEntries: number) {
       ws.onopen = () => { clearTimeout(t); setWsState('connected'); ws.send(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'transactionSubscribe', params: [{ failed: false }, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 }] })); };
       ws.onmessage = (e) => { try { const d = JSON.parse(e.data); (d?.params?.result?.transaction?.message?.accountKeys ?? []).slice(0, 3).forEach((m: string) => { if (m.length >= 32 && m.length <= 44) enqueue(m); }); } catch { /* ignore */ } };
       ws.onerror = () => { clearTimeout(t); startDemo(); };
-      ws.onclose = () => { setWsState('disconnected'); reconnectRef.current = setTimeout(connect, 5000); };
+      ws.onclose = () => { setWsState('connected'); reconnectRef.current = setTimeout(connect, 5000); };
     } catch { startDemo(); }
   }, [enqueue, startDemo]);
 
