@@ -51,7 +51,7 @@ function Topbar({ result, accent }: { result: EngineResult | null; accent: strin
 
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <span style={{ fontFamily: "monospace", fontSize: 9, color: THEME.dim }}>{time}</span>
-        <a href="/upgrade" style={{ padding: "4px 12px", fontFamily: "monospace", fontSize: 9, letterSpacing: "0.15em", border: "0.5px solid " + accent + "40", color: accent, background: accent + "08", borderRadius: 2, textDecoration: "none" }}>PRO</a>
+        <a href="/robot" style={{ padding: "4px 12px", fontFamily: "monospace", fontSize: 9, letterSpacing: "0.15em", border: "0.5px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)", background: "transparent", borderRadius: 2, textDecoration: "none", marginRight: 6 }}>ROBOT</a><a href="/upgrade" style={{ padding: "4px 12px", fontFamily: "monospace", fontSize: 9, letterSpacing: "0.15em", border: "0.5px solid " + accent + "40", color: accent, background: accent + "08", borderRadius: 2, textDecoration: "none" }}>PRO</a>
       </div>
     </header>
   );
