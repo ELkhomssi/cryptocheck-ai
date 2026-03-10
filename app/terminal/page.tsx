@@ -1,27 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
 
 export default function TerminalPage() {
   return (
-    <div style={{ 
-      minHeight: "100vh", 
-      background: "#000", 
-      color: "#0f0", 
-      fontFamily: "'Courier New', Courier, monospace",
-      padding: "20px"
-    }}>
-      <div style={{ borderBottom: "1px solid #333", paddingBottom: "10px", marginBottom: "20px" }}>
-        [CryptoCheck AI - Secure Terminal v3.0] -- User: CEO_Morocco
+    <div style={{ background: "#06060f", color: "#e2e8f0", minHeight: "100vh", padding: 20 }}>
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <h1>CryptoCheck AI Terminal</h1>
+        <div style={{ background: "#111128", padding: 20, borderRadius: 8, fontFamily: "monospace" }}>
+          <div style={{ color: "#7c3aed" }}>
+            {"> Initializing blockchain audit..."}<br/>
+            {"> Connection to Solana Mainnet: SUCCESS"}<br/>
+            {"> Loading Alpha Feed..."}
+          </div>
+        </div>
       </div>
-      <div style={{ color: "#7c3aed" }}>
-        > Initializing blockchain audit... <br/>
-        > Connection to Solana Mainnet: SUCCESS <br/>
-        > Loading Alpha Feed...
-      </div>
-      {/* Hna t9der t-zid l-Alpha Feed logic li 3titek f l-lowl */}
-      <pre style={{ marginTop: "20px", fontSize: "12px" }}>
-        {}
-      </pre>
     </div>
   );
 }
