@@ -2,16 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { priceId, userId } = await request.json();
+    const { plan } = await request.json();
     
-    // Simulation (remplacez par vraie intégration Stripe)
+    // Simulation Stripe session
+    const mockSession = {
+      sessionId: `cs_test_${Math.random().toString(36).substr(2, 9)}`,
+      url: `https://checkout.stripe.com/pay/test_session_${Date.now()}`,
+      plan: plan || 'pro',
+      price: plan === 'pro' ? 29 : 99,
+      timestamp: Date.now()
+    };
+
     return NextResponse.json({
-      sessionId: "cs_test_" + Math.random().toString(36).substr(2, 9),
-      url: `https://checkout.stripe.com/pay/test_session_${Date.now()}`
+      success: true,
+      data: mockSession
     });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Checkout failed' },
+      { success: false, error: 'Checkout failed' },
       { status: 500 }
     );
   }
