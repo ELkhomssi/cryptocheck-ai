@@ -1,0 +1,37 @@
+"use client";
+import React from "react";
+import Link from "next/link";
+
+export default function HomePage() {
+  return (
+    <div style={{ 
+      minHeight: "100vh", 
+      background: "#06060f", 
+      color: "white", 
+      display: "flex", 
+      flexDirection: "column",
+      alignItems: "center", 
+      justifyContent: "center",
+      fontFamily: "Inter, sans-serif"
+    }}>
+      <h1 style={{ fontSize: "3rem", marginBottom: "20px" }}>CryptoCheck AI</h1>
+      <p style={{ color: "#94a3b8", marginBottom: "40px" }}>CEO Control Panel v3.0</p>
+      
+      <Link href="/terminal">
+        <button style={{
+          background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
+          color: "white",
+          padding: "16px 32px",
+          border: "none",
+          borderRadius: "12px",
+          cursor: "pointer",
+          fontSize: "1.1rem",
+          fontWeight: "bold",
+          boxShadow: "0 4px 15px rgba(124, 58, 237, 0.4)"
+        }}>
+          🚀 Launch Terminal
+        </button>
+      </Link>
+    </div>
+  );
+}
